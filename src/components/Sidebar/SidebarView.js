@@ -14,6 +14,9 @@ import {
   LibraryBooks as LibraryIcon,
   HelpOutline as FAQIcon,
   ArrowBack as ArrowBackIcon,
+  Person as PersonIcon,
+  DeveloperMode as DeveloperModeIcon,
+  Description as DescriptionIcon,
 } from "@material-ui/icons";
 import classNames from 'classnames';
 
@@ -22,6 +25,9 @@ import Dot from './components/Dot';
 
 const structure = [
   { id: 0, label: 'Dashboard', link: '/app/dashboard', icon: <HomeIcon /> },
+  { id: 15, label: 'User Management', link: '/app/user', icon: <PersonIcon /> },
+  { id: 16, label: 'Employee', link: '/app/employee', icon: <DeveloperModeIcon /> },
+  { id: 17, label: 'Feedback', link: '/app/feedback', icon: <DescriptionIcon /> },
   { id: 1, label: 'Typography', link: '/app/typography', icon: <TypographyIcon /> },
   { id: 2, label: 'Tables', link: '/app/tables', icon: <TableIcon /> },
   { id: 3, label: 'Notifications', link: '/app/notifications', icon: <NotificationsIcon />},
