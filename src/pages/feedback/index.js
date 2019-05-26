@@ -1,11 +1,5 @@
 import React from 'react';
-import { Grid } from '@material-ui/core';
-import MUIDataTable from "mui-datatables";
-
-import PageTitle from '../../components/PageTitle';
-import Widget from '../../components/Widget';
-import Table from '../dashboard/components/Table/Table';
-import mock from '../dashboard/mock'; 
+import MUIDataTable from "mui-datatables"; 
 import { Component } from 'react';
 const columns = [
     {
