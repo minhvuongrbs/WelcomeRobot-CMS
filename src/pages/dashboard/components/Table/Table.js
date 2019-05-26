@@ -7,13 +7,6 @@ import {
   TableCell,
   Avatar
 } from "@material-ui/core";
-// import { Button } from '../../../../components/Wrappers';
-
-// const states = {
-//   sent: "success",
-//   pending: "warning",
-//   declined: "secondary"
-// };
 
 const TableComponent = ({ data }) => {
   const keys = Object.keys(data[0]).map(i => i.toUpperCase());
@@ -36,19 +29,6 @@ const TableComponent = ({ data }) => {
             <TableCell className="pl-3 fw-normal">{fullName}</TableCell>
             <TableCell>{skypeName}</TableCell>
             <TableCell>{hierarchy}</TableCell>
-            {/* <TableCell>{price}</TableCell>
-            <TableCell>{date}</TableCell>
-            <TableCell>{city}</TableCell> */}
-            {/* <TableCell>
-              <Button
-                color={states[status.toLowerCase()]}
-                size="small"
-                className="px-2"
-                variant="contained"
-              >
-                {status}
-              </Button>
-            </TableCell> */}
           </TableRow>
         ))}
       </TableBody>
