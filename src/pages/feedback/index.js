@@ -10,7 +10,7 @@ import { Component } from 'react';
 const columns = [
     {
      name: "_id",
-     label: "Name",
+     label: "Id",
      options: {
       filter: true,
       sort: true,
@@ -18,7 +18,7 @@ const columns = [
     },
     {
      name: "comment",
-     label: "Company",
+     label: "Comment",
      options: {
       filter: true,
       sort: false,
@@ -26,7 +26,7 @@ const columns = [
     },
     {
      name: "rating",
-     label: "City",
+     label: "Rating",
      options: {
       filter: true,
       sort: false,
@@ -34,7 +34,7 @@ const columns = [
     },
     {
      name: "created_at",
-     label: "State",
+     label: "Created At",
      options: {
       filter: true,
       sort: false,
@@ -89,10 +89,10 @@ class Feedback extends Component{
         //     ))}
         //   </ul>
            <MUIDataTable
-         title={"Employee List"}
-        data={users}
-        columns={columns}
-        options={options}
+            title={"Employee List"}
+            data={users}
+            columns={columns}
+            options={options}
             />
         );
       }
