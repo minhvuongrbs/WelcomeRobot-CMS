@@ -5,14 +5,15 @@ import {
   TableHead,
   TableBody,
   TableCell,
+  Avatar
 } from "@material-ui/core";
-import { Button } from '../../../../components/Wrappers';
+// import { Button } from '../../../../components/Wrappers';
 
-const states = {
-  sent: "success",
-  pending: "warning",
-  declined: "secondary"
-};
+// const states = {
+//   sent: "success",
+//   pending: "warning",
+//   declined: "secondary"
+// };
 
 const TableComponent = ({ data }) => {
   const keys = Object.keys(data[0]).map(i => i.toUpperCase());
@@ -27,15 +28,18 @@ const TableComponent = ({ data }) => {
         </TableRow>
       </TableHead>
       <TableBody>
-        {data.map(({ id, name, email, product, price, date, city, status }) => (
+        {data.map(({ id, avatar, fullName, skypeName, hierarchy }) => (
           <TableRow key={id}>
-            <TableCell className="pl-3 fw-normal">{name}</TableCell>
-            <TableCell>{email}</TableCell>
-            <TableCell>{product}</TableCell>
-            <TableCell>{price}</TableCell>
-            <TableCell>{date}</TableCell>
-            <TableCell>{city}</TableCell>
             <TableCell>
+              <Avatar src={avatar} />
+            </TableCell>
+            <TableCell className="pl-3 fw-normal">{fullName}</TableCell>
+            <TableCell>{skypeName}</TableCell>
+            <TableCell>{hierarchy}</TableCell>
+            {/* <TableCell>{price}</TableCell>
+            <TableCell>{date}</TableCell>
+            <TableCell>{city}</TableCell> */}
+            {/* <TableCell>
               <Button
                 color={states[status.toLowerCase()]}
                 size="small"
@@ -44,7 +48,7 @@ const TableComponent = ({ data }) => {
               >
                 {status}
               </Button>
-            </TableCell>
+            </TableCell> */}
           </TableRow>
         ))}
       </TableBody>
