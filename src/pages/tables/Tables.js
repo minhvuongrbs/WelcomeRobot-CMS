@@ -38,6 +38,7 @@ const Tables = props => (
           columns={["Name", "Company", "City", "State"]}
           options={{
             filterType: 'checkbox',
+            
           }}
         />
       </Grid>
