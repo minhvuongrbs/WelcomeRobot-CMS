@@ -141,7 +141,7 @@ class Employee extends Component {
         } else {
             return (
                 <React.Fragment>
-                    <PageTitle title="Employee Account Management" />
+                    <PageTitle title="Employee Management" />
                     <Widget title="Skype Account" upperTitle noBodyPadding>
                         <form className={classes.container} >
                             <TextField

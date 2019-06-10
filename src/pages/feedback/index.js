@@ -50,7 +50,7 @@ class Feedback extends Component{
     }
   
     componentDidMount() {
-      fetch("https://api.welcomerobot.t.s2.siouxdev.com/wr/v1/feedbacks")
+      fetch("/wr/v1/feedbacks")
         .then(res => res.json())
         .then(
           (result) => {
@@ -75,15 +75,8 @@ class Feedback extends Component{
         return <div>Loading...</div>;
       } else {
         return (
-        //   <ul>
-        //     {users.map(user => (
-        //       <li key={user._id}>
-        //         {user.comment} {user.rating}
-        //       </li>
-        //     ))}
-        //   </ul>
            <MUIDataTable
-            title={"Employee List"}
+            title={"Feedback List"}
             data={users}
             columns={columns}
             options={options}
