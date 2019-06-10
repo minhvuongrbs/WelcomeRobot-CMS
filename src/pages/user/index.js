@@ -14,7 +14,7 @@ class Users extends Component {
   }
 
   componentDidMount() {
-    fetch("https://api.welcomerobot.t.s2.siouxdev.com/wr/v1/users")
+    fetch("/wr/v1/users")
       .then(res => res.json())
       .then(
         (result) => {
