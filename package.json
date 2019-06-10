@@ -31,9 +31,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
-  "eslintConfig": {
-    "extends": "react-app"
-  },
+  "proxy": "https://api.welcomerobot.t.s2.siouxdev.com",
   "browserslist": [
     ">0.2%",
     "not dead",

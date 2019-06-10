@@ -20,8 +20,8 @@ const styles = () => ({
         flexWrap: 'wrap',
     },
     formControl: {
-        margin: 10,
-        minWidth: 120,
+        margin: 30,
+        minWidth: 150,
     },
     button: {
         margin: 10,
@@ -39,13 +39,16 @@ class Employee extends Component {
             isLoader: false,
         }
         this._skypeHandler = this._skypeHandler.bind(this);
-        this._onSubmit = this._onSubmit.bind(this);
+        this._hierarchyHandler = this._hierarchyHandler.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleChange = this.handleChange.bind(this);
     }
     componentDidMount() {
-        fetch("https://api.welcomerobot.t.s2.siouxdev.com/wr/v1/skypes")
+        fetch("/wr/v1/skypes")
             .then(res => res.json())
             .then(
                 (result) => {
+                    console.log("skype: " + result.data[0].username);
                     this.setState({
                         isLoaded: true,
                         skypes: result.data
@@ -60,25 +63,77 @@ class Employee extends Component {
             )
     }
     _skypeHandler(event) {
-        const {skypes} = this.state;
+        const { skypes } = this.state;
         const skype = skypes.find(s => s.skype_id === event.target.value);
-        if(skype){
+        if (skype) {
             this.setState({
                 skype_name: skype.username,
                 skype_id: event.target.value,
             });
         }
     }
-    _onSubmit() {
-        const { skype_name, skype_id} = this.state;
-        console.log("skype_id " + skype_id);
-        console.log("skype_name " + skype_name);
-
-        
+    _hierarchyHandler(event) {
+        this.setState({
+            hierarchy_name: event.target.value,
+        });
+    }
+    handleChange(event) {
+        const target = event.target;
+        const name = target.name;
+        const value = target.value;
+        this.setState({
+            [name]: value,
+        })
+    }
+    handleSubmit() {
+        const { skype_name, skype_id, full_name, eng_description, viet_description, hierarchy_name, avatar }
+            = this.state;
+        fetch('/wr/v1/users', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                full_name: full_name,
+                skype_name: skype_name,
+                avatar: avatar,
+                description: [eng_description, viet_description],
+                hierarchy_name: hierarchy_name,
+                permission: 1,
+                skype_id: skype_id,
+            })
+        }).then(response => {
+            console.log("response: "+ response);
+            alert("created successfull")
+        }).catch(error => {
+            console.log("push error"+error)
+        })
     }
     render() {
+        const hierarchyName = ['Board of directors',
+            'Chief Executive Officer',
+            'Chief Operation Officer',
+            'Chief Finance Officer',
+            'Chief Technology Officer',
+            'Senior Project Manager',
+            'Project Manager',
+            'Junior Project Manager',
+            'Senior Project leader',
+            'Senior Quality Analyst',
+            'Senior Testing Officer',
+            'Resource Management Officer',
+            'Human Resource Manager',
+            'Human Resource',
+            'Junior Human Resource',
+            'Senior Software Engineer',
+            'Software Engineer',
+            'Junior Software Engineer',
+            'Software Testing Officer',
+            'Quality Testing Officer',
+            'Team Leader'
+        ];
         const { classes } = this.props;
-        const { error, isLoaded, skypes, skype_id } = this.state;
+        const { error, isLoaded, skypes, skype_id, hierarchy_name } = this.state;
         if (error) {
             return <div>Error: {error.message}</div>;
         } else if (!isLoaded) {
@@ -88,7 +143,7 @@ class Employee extends Component {
                 <React.Fragment>
                     <PageTitle title="Employee Account Management" />
                     <Widget title="Skype Account" upperTitle noBodyPadding>
-                        <form className={classes.container}>
+                        <form className={classes.container} >
                             <TextField
                                 required
                                 id="standard-required"
@@ -96,8 +151,10 @@ class Employee extends Component {
                                 defaultValue="Fill your full name"
                                 className={classes.textField}
                                 margin="normal"
+                                name="full_name"
+                                onChange={this.handleChange}
                             />
-                            <FormControl className={classes.formControl}>
+                            <FormControl required className={classes.formControl}>
                                 <InputLabel htmlFor="skype-simple">Skype Name</InputLabel>
                                 <Select
                                     value={skype_id}
@@ -117,6 +174,26 @@ class Employee extends Component {
                                     ))}
                                 </Select>
                             </FormControl>
+                            <FormControl required className={classes.formControl} >
+                                <InputLabel htmlFor="hierarchy-simple">Hierarchy Name</InputLabel>
+                                <Select
+                                    value={hierarchy_name}
+                                    onChange={this._hierarchyHandler}
+                                    inputProps={{
+                                        name: 'hierarchy_id',
+                                        id: 'hierarchy-simple',
+                                    }}
+                                >
+                                    <MenuItem value="">
+                                        <em>None</em>
+                                    </MenuItem>
+                                    {hierarchyName.map(item => (
+                                        <MenuItem key={item} value={item}>
+                                            {item}
+                                        </MenuItem>
+                                    ))}
+                                </Select>
+                            </FormControl>
                             <TextField
                                 id="standard-multiline-static"
                                 label="English description"
@@ -125,6 +202,8 @@ class Employee extends Component {
                                 defaultValue="Please enter your description"
                                 className={classes.textField}
                                 margin="normal"
+                                name="eng_description"
+                                onChange={this.handleChange}
                             />
                             <TextField
                                 id="standard-multiline-static"
@@ -134,11 +213,24 @@ class Employee extends Component {
                                 defaultValue="Please enter your description"
                                 className={classes.textField}
                                 margin="normal"
+                                name="viet_description"
+                                onChange={this.handleChange}
+                            />
+                            <TextField
+                                id="standard-multiline-static"
+                                label="Avatar"
+                                defaultValue="Please insert your avatar link right here"
+                                className={classes.textField}
+                                margin="normal"
+                                name="avatar"
+                                onChange={this.handleChange}
                             />
                         </form>
-                        <Button variant="contained" color="primary" className={classes.button} onClick={this._onSubmit}>
+                        <Button variant="contained" color="primary"
+                            className={classes.button} onClick={this.handleSubmit}>
                             Submit
                         </Button>
+
                     </Widget>
                 </React.Fragment>
             );
